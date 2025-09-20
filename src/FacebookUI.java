@@ -36,8 +36,6 @@ public class FacebookUI extends JFrame {
         btnLogin.setFocusPainted(false);
         btnLogin.setBorder(new EmptyBorder(10, 0, 10, 0));
 
-
-
         // === Create Account Button (Green) ===
         btnCreate.setFocusPainted(false);
         btnCreate.setBorder(new EmptyBorder(10, 20, 10, 20));
@@ -83,6 +81,32 @@ public class FacebookUI extends JFrame {
                 }
             }
         });
+
+        // 3. Press Q anywhere -> exit program
+        // Q (uppercase)
+        FacebookPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke('Q'), "quitProgram");
+
+        // q (lowercase)
+                FacebookPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                        .put(KeyStroke.getKeyStroke('q'), "quitProgram");
+
+                FacebookPanel.getActionMap().put("quitProgram", new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                });
+
+
+// 4. Click outside input fields -> remove focus
+        FacebookPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                FacebookPanel.requestFocusInWindow(); // blur text fields
+            }
+        });
+
 
         setVisible(true);
     }
